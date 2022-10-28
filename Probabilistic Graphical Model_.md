@@ -24,7 +24,7 @@
 
 **隐马尔可夫模型**(Hidden Markov Model，简称HMM) 是结构最筒单的**动态贝叶斯网**(dynamic Bayesian network)：隐马尔可夫模型是**关于时序**的概率模型，描述由**一个隐藏的马尔可夫链随机生成不可观测的状态随机序列**，再由各个状态生成一个观测从而**产生观测随机序列**的过程。隐藏的马尔可夫链随机生成的状态的序列，称为**状态序列**（state）；每个状态生成一个观测，而由此产生的观测的随机序列，称为**观测序列**（observation sequence）。序列的每一个位置又可以看作是一个时刻。
 
-![image-20221005144627550.png](_resources/image-20221005144627550.png)
+![image-20221005144627550.png](../../../_resources/image-20221005144627550.png)
 
 
 * 状态变量（隐变量）： $\{y_1,y_2,\cdots,y_n\}$ ，其中 $y_i\in\mathcal{Y}$ 表示第 $i$ 时刻的系统状态，
@@ -45,19 +45,19 @@
   $$
   确定一个隐马尔可夫模型还需要三组参数：
   
-  1. **状态转移概率**：模型在各状态间转换的概率，通常记为 $\bold{A}=[a_{ij}]_{N\times N}$ ，其中
+  1. **状态转移概率**：模型在各状态间转换的概率，通常记为 $\mathbf{A}=[a_{ij}]_{N\times N}$ ，其中
      $$
      a_{ij}=P(y_{t+1}=s_j|y_t=s_i), 1\leq i,j\le N
      $$
      意为任意时刻 $t$ ，若状态为 $s_i$ ，则下一时刻状态为 $s_j$ 的概率
   
-  2. **输出观测概率**：模型根据**当前状态**获得**各个观测值**的概率，通常记为矩阵 $\bold{B}=[b_{ij}]_{N\times M}$ ，其中
+  2. **输出观测概率**：模型根据**当前状态**获得**各个观测值**的概率，通常记为矩阵 $\mathbf{B}=[b_{ij}]_{N\times M}$ ，其中
      $$
      b_{ij}=P(x_t=o_j|y_t=s_i), 1\leq i\leq N, 1\leq j \leq M
      $$
      意为任意时刻 $t$ ，若状态为 $s_i$ ，则观测值 $o_j$ 被获取的概率
   
-  3. **初始状态概率**：模型在初始时刻各状态出现的概率，通常记为 $\bold{\pi}=(\pi_1,\pi_2,\cdots,\pi_N)$ ，其中
+  3. **初始状态概率**：模型在初始时刻各状态出现的概率，通常记为 $\mathbf{\pi}=(\pi_1,\pi_2,\cdots,\pi_N)$ ，其中
      $$
      \pi_i=P(y_1=s_i), 1\leq i\leq N
      $$
@@ -65,19 +65,19 @@
   
   > https://www.cnblogs.com/skyme/p/4651331.html
   
-* 通过指定状态空间 $\mathcal{Y}$、观测空间 $\mathcal{X}$ 和上述三组参数，就能确定一个隐马尔可夫模型，通常用其参数 $\lambda=[\bold{A},\bold{B},\bold{\pi}]$ 来指代
+* 通过指定状态空间 $\mathcal{Y}$、观测空间 $\mathcal{X}$ 和上述三组参数，就能确定一个隐马尔可夫模型，通常用其参数 $\lambda=[\mathbf{A},\mathbf{B},\mathbf{\pi}]$ 来指代
 
 * 隐马尔可夫模型的三个**基本问题**：
 
-  1. （概率计算问题）如何评估**模型**与**观测序列**之间的匹配程度：给定模型 $\lambda=[\bold{A},\bold{B},\bold{\pi}]$ ，如何有效计算其产生观测序列 $\bold{x}=\{x_1,x_2,\cdots,x_n\}$ 的概率 $P(\bold{x}|\lambda)$ 
+  1. （概率计算问题）如何评估**模型**与**观测序列**之间的匹配程度：给定模型 $\lambda=[\mathbf{A},\mathbf{B},\mathbf{\pi}]$ ，如何有效计算其产生观测序列 $\mathbf{x}=\{x_1,x_2,\cdots,x_n\}$ 的概率 $P(\mathbf{x}|\lambda)$ 
   
      > 前向/后向算法
   
-  2. （预测问题）如何根据**观测序列**推断出**隐藏的模型状态**：模型 $\lambda=[\bold{A},\bold{B},\bold{\pi}]$ 和观测序列 $\bold{x}=\{x_1,x_2,\cdots,x_n\}$ ，如何找到与此观测序列最匹配的状态序列 $\bold{y}=\{y_1,y_2,\cdots,y_n\}$ 
+  2. （预测问题）如何根据**观测序列**推断出**隐藏的模型状态**：模型 $\lambda=[\mathbf{A},\mathbf{B},\mathbf{\pi}]$ 和观测序列 $\mathbf{x}=\{x_1,x_2,\cdots,x_n\}$ ，如何找到与此观测序列最匹配的状态序列 $\mathbf{y}=\{y_1,y_2,\cdots,y_n\}$ 
   
      > 贪心算法、维特比算法
   
-  3. （学习问题）如何**训练模型**使其能最好地**描述观测数据**：给定观测序列 $\bold{x}=\{x_1,x_2,\cdots,x_n\}$ ，如何调整模型参数 $\lambda=[\bold{A},\bold{B},\bold{\pi}]$ ，使得该序列出现的概率 $P(\bold{x}|\lambda)$ 最大
+  3. （学习问题）如何**训练模型**使其能最好地**描述观测数据**：给定观测序列 $\mathbf{x}=\{x_1,x_2,\cdots,x_n\}$ ，如何调整模型参数 $\lambda=[\mathbf{A},\mathbf{B},\mathbf{\pi}]$ ，使得该序列出现的概率 $P(\mathbf{x}|\lambda)$ 最大
   
      > EM 算法、极大似然估计
 
@@ -104,7 +104,7 @@ $$
 
 3. 终止：$P(O|\lambda)=\sum_{i=1}^N{\alpha_T(i)}$ 
 
-![f7284a337fcbfff2c32f0c3b2e70107c.png](_resources/f7284a337fcbfff2c32f0c3b2e70107c.png)
+![f7284a337fcbfff2c32f0c3b2e70107c.png](../../../_resources/f7284a337fcbfff2c32f0c3b2e70107c.png)
 
 > 前向算法使用基于“状态序列的路径结构”递推计算观测序列概率。
 >
@@ -225,16 +225,16 @@ $$
 
 * **势函数**(potential functions) ，亦称"**因子**" (factor) ，这是定义在变量子集上的非负实函数， 主要用于定义概率分布函数。
 
-![32eebc8b45f4a27406a0765e9aa219e6.png](_resources/32eebc8b45f4a27406a0765e9aa219e6.png)
+![32eebc8b45f4a27406a0765e9aa219e6.png](../../../_resources/32eebc8b45f4a27406a0765e9aa219e6.png)
 
 ## 条件独立性
 
 * **分离集** (separating set)：若从结点集 $A$ 中的结点到 $B$ 中的结点都必须经过结点集 $C$ 中的结点，则称结点集 $A$ 和 $B$ 被结点集 $C$ 分离， $C$ 称为“分离集”。
-* **全局马尔可夫性** (global Markov property)：给定两个变量子集的分离集，则这两个变量子集条件独立，记为 $\bold{x}_A\bot\bold{x}_B|\bold{x}_C$ 
-* **局部马尔可夫性** (local Markov property)：给定某变量的邻接变量，则该变量条件独立于其他变量。形式化地说，令 $V$ 为图的结点集，$n(v)$ 为结点 $v$ 在图上的邻接结点，令$n^*(v)=n(v)\cup {v}$ ，则有 $\bold{x}_v\bot \bold{x}_{V\setminus n^*(v)}|\bold{x}_{n(v)}$ 
-  * 在 $P(\bold{x}_{V\setminus n^*(v)}|P(\bold{x}_{n(v)}))>0$ 时，等价地有：$P(\bold{x}_v|\bold{x}_{n(v)})=P(\bold{x}_v|\bold{x}_{n(v)},\bold{x}_{V\setminus n^*(v)})$ 
+* **全局马尔可夫性** (global Markov property)：给定两个变量子集的分离集，则这两个变量子集条件独立，记为 $\mathbf{x}_A\bot\mathbf{x}_B|\mathbf{x}_C$ 
+* **局部马尔可夫性** (local Markov property)：给定某变量的邻接变量，则该变量条件独立于其他变量。形式化地说，令 $V$ 为图的结点集，$n(v)$ 为结点 $v$ 在图上的邻接结点，令$n^*(v)=n(v)\cup {v}$ ，则有 $\mathbf{x}_v\bot \mathbf{x}_{V\setminus n^*(v)}|\mathbf{x}_{n(v)}$ 
+  * 在 $P(\mathbf{x}_{V\setminus n^*(v)}|P(\mathbf{x}_{n(v)}))>0$ 时，等价地有：$P(\mathbf{x}_v|\mathbf{x}_{n(v)})=P(\mathbf{x}_v|\mathbf{x}_{n(v)},\mathbf{x}_{V\setminus n^*(v)})$ 
   * 马尔可夫毯 (Markov blanket)：某变量的所有邻接变量组成的集合称为该变量的“马尔可夫毯”
-* **成对马尔可夫性** (pairwise Markov property)：给定所有其他变量，两个非邻接变量条件独立。形式化地说，令图的结点集和边集分别为 $V$ 和 $E$ ，对图中的两个结点 $u$ 和 $v$ ，若 $\langle u,v \rangle \notin E$ ，则有 $\bold{x}_u\bot\bold{x}_v|\bold{x}_{V\setminus \langle u,v \rangle}$ 
+* **成对马尔可夫性** (pairwise Markov property)：给定所有其他变量，两个非邻接变量条件独立。形式化地说，令图的结点集和边集分别为 $V$ 和 $E$ ，对图中的两个结点 $u$ 和 $v$ ，若 $\langle u,v \rangle \notin E$ ，则有 $\mathbf{x}_u\bot\mathbf{x}_v|\mathbf{x}_{V\setminus \langle u,v \rangle}$ 
 
 ## 团 clique
 
@@ -244,29 +244,29 @@ $$
 
 * 在马尔可夫随机场中，多个变量之间的联合概率分布能基于团分解为**多个因子的乘积**，每个因子仅与一个团相关。
 
-  对 $n$ 个变量 $\bold{x}=\{x_1,x_2,\cdots,x_n\}$ ，所有团构成的集合为 $\mathcal{C}$ ，与团 $Q\in \mathcal{C}$ 对应的变量集合记为 $\bold{x}_Q$ ，则联合概率 $P(\bold{x})$ 定义为：
+  对 $n$ 个变量 $\mathbf{x}=\{x_1,x_2,\cdots,x_n\}$ ，所有团构成的集合为 $\mathcal{C}$ ，与团 $Q\in \mathcal{C}$ 对应的变量集合记为 $\mathbf{x}_Q$ ，则联合概率 $P(\mathbf{x})$ 定义为：
   $$
-  P(\bold{x})=\frac{1}{Z}\prod_{Q\in \mathcal{C}}{\psi_Q(\bold{x}_Q)}
+  P(\mathbf{x})=\frac{1}{Z}\prod_{Q\in \mathcal{C}}{\psi_Q(\mathbf{x}_Q)}
   $$
-  其中，$\psi_Q$ 为与团 $Q$ 对应的势函数，用于对团 $Q$ 中的变量进行建模；$Z=\sum_{\bold{x}}\prod_{Q\in \mathcal{C}}{\psi_Q(\bold{x}_Q)}$ 为规范化因子，以确保 $P(\bold{x})$ 是被正确定义的概率。
+  其中，$\psi_Q$ 为与团 $Q$ 对应的势函数，用于对团 $Q$ 中的变量进行建模；$Z=\sum_{\mathbf{x}}\prod_{Q\in \mathcal{C}}{\psi_Q(\mathbf{x}_Q)}$ 为规范化因子，以确保 $P(\mathbf{x})$ 是被正确定义的概率。
 
-* 联合概率 $P(\bold{x})$ 可以**基于极大团来定义**，假定所有极大团构成的集合为 $\mathcal{C}^*$ ，则有：
+* 联合概率 $P(\mathbf{x})$ 可以**基于极大团来定义**，假定所有极大团构成的集合为 $\mathcal{C}^*$ ，则有：
   $$
-  P(\bold{x})=\frac{1}{Z^*}\prod_{Q\in \mathcal{C}^*}{\psi_Q(\bold{x}_Q)}
+  P(\mathbf{x})=\frac{1}{Z^*}\prod_{Q\in \mathcal{C}^*}{\psi_Q(\mathbf{x}_Q)}
   $$
-  其中，$Z^*=\sum_{\bold{x}}\prod_{Q\in \mathcal{C}^*}{\psi_Q(\bold{x}_Q)}$ 为规范化因子。在被包含在极大团中的团不需要单独计算势函数。
+  其中，$Z^*=\sum_{\mathbf{x}}\prod_{Q\in \mathcal{C}^*}{\psi_Q(\mathbf{x}_Q)}$ 为规范化因子。在被包含在极大团中的团不需要单独计算势函数。
 
 ## 势函数 potential functions
 
-* 势函数 $\psi_Q(\bold{x}_Q)$ 的作用是定量刻画变量集 $\bold{x}_Q$ 中变量之间的相关关系，它应该是非负函数，且在所偏好的变量取值上有较大函数值。
+* 势函数 $\psi_Q(\mathbf{x}_Q)$ 的作用是定量刻画变量集 $\mathbf{x}_Q$ 中变量之间的相关关系，它应该是非负函数，且在所偏好的变量取值上有较大函数值。
 
-* 为了满足非负性，指数面数常被用于定义势函数，即
+* 为了满足非负性，指数函数常被用于定义势函数，即
   $$
-  \psi_Q(\bold{x}_Q)=e^{-H_Q(\bold{x}_Q)}
+  \psi_Q(\mathbf{x}_Q)=e^{-H_Q(\mathbf{x}_Q)}
   $$
-  $H_Q(\bold{x}_Q)$ 是一个定义在变量 $\bold{x}_Q$ 上的实值函数，常见形式为
+  $H_Q(\mathbf{x}_Q)$ 是一个定义在变量 $\mathbf{x}_Q$ 上的实值函数，常见形式为
   $$
-  H_Q(\bold{x}_Q)=\sum_{u,v\in Q,u\ne v}{a_{uv}x_ux_v}+\sum_{v\in Q}{\beta_vx_v}
+  H_Q(\mathbf{x}_Q)=\sum_{u,v\in Q,u\ne v}{a_{uv}x_ux_v}+\sum_{v\in Q}{\beta_vx_v}
   $$
   其中，$a_{uv}$ 和 $\beta_v$ 是参数，上式中第二项仅考虑单结点，第一项则考虑每一对结点的关系。
 
@@ -276,31 +276,31 @@ $$
 
 是给定一组输入随机变量的条件下另一组输出随机变量的**条件概率分布模型**，其特点是假设**输出随机变量构成马尔可夫随机场**
 
-* 假定，观测序列： $\bold{x}=\{x_1,x_2,\cdots,x_n\}$ ，与之对应的标记序列：$\bold{y}=\{y_1,y_2,\cdots,y_n\}$ ，则条件随机场的**目标**是构建条件概率模型 $P(\bold{y}|\bold{x})$ 
+* 假定，观测序列： $\mathbf{x}=\{x_1,x_2,\cdots,x_n\}$ ，与之对应的标记序列：$\mathbf{y}=\{y_1,y_2,\cdots,y_n\}$ ，则条件随机场的**目标**是构建条件概率模型 $P(\mathbf{y}|\mathbf{x})$ 
 
-* 令 $G=\langle V,E\rangle$ 表示结点与标记变量 $\bold{y}$ 中元素一一对应的无向图，$y_v$ 表示与结点 $v$ 对应的标记变量，$n(v)$ 表示结点 $v$ 的邻接结点，若图 $G$ 的每个变量 $y_v$ 都满足**马尔可夫性**，即
+* 令 $G=\langle V,E\rangle$ 表示结点与标记变量 $\mathbf{y}$ 中元素一一对应的无向图，$y_v$ 表示与结点 $v$ 对应的标记变量，$n(v)$ 表示结点 $v$ 的邻接结点，若图 $G$ 的每个变量 $y_v$ 都满足**马尔可夫性**，即
   $$
-  P(y_v|\bold{x},\bold{y}_{V\setminus\{v\}})=P(y_v|\bold{x},\bold{y}_{n(v)})
+  P(y_v|\mathbf{x},\mathbf{y}_{V\setminus\{v\}})=P(y_v|\mathbf{x},\mathbf{y}_{n(v)})
   $$
-  则 $(\bold{y},\bold{x})$ 构成一个条件随机场
+  则 $(\mathbf{y},\mathbf{x})$ 构成一个条件随机场
   
   > 这里的马尔可夫性是全局、局部或成对马尔可夫性（三者等价）的表现，由于给定邻接变量后与其他变量条件独立，所以马尔可夫毯之外的变量不会影响条件概率
 
 ## 链式条件随机场 chain-structured CRF
 
-![cb3a86990612cc4c4fb11cd7f44ede68.png](_resources/cb3a86990612cc4c4fb11cd7f44ede68.png)
+![cb3a86990612cc4c4fb11cd7f44ede68.png](../../../_resources/cb3a86990612cc4c4fb11cd7f44ede68.png)
 
 ### 条件随机场的参数化形式
 
-条件随机场也使用**势函数**和**图结构**上的团来定义条件概率 $P(\bold{y}|\bold{x})$ ，链式条件随机场主要包含两种关于标记变量的团：$\{y_i\}$ 和 $\{y_{i-1},y_i\}$ ，通过选用**指数势函数**并引入**特征函数** (feature function) ，条件概率被定义为：
+条件随机场也使用**势函数**和**图结构**上的团来定义条件概率 $P(\mathbf{y}|\mathbf{x})$ ，链式条件随机场主要包含两种关于标记变量的团：$\{y_i\}$ 和 $\{y_{i-1},y_i\}$ ，通过选用**指数势函数**并引入**特征函数** (feature function) ，条件概率被定义为：
 $$
-P(\bold{y}|\bold{x})=\frac{1}{Z}\exp{\left( \sum_j{\sum_{i=1}^{n-1}{\lambda_jt_j(y_{i+1},y_i,\bold{x},i)}}+\sum_k{\sum_{i=1}^{n}{\mu_ks_k(y_i,\bold{x},i)}} \right)}
+P(\mathbf{y}|\mathbf{x})=\frac{1}{Z}\exp{\left( \sum_j{\sum_{i=1}^{n-1}{\lambda_jt_j(y_{i+1},y_i,\mathbf{x},i)}}+\sum_k{\sum_{i=1}^{n}{\mu_ks_k(y_i,\mathbf{x},i)}} \right)}
 $$
 其中，
 
-* $t_j(y_{i+1},y_i,\bold{x},i)$ 是定义在观测序列的两个相邻标记位置上的**转移特征函数** (transition feature function) ，用于刻画**相邻标记变量之间的相关关系**以及**观测序列对它们的影响**
+* $t_j(y_{i+1},y_i,\mathbf{x},i)$ 是定义在观测序列的两个相邻标记位置上的**转移特征函数** (transition feature function) ，用于刻画**相邻标记变量之间的相关关系**以及**观测序列对它们的影响**
 
-* $s_k(y_i,\bold{x},i)$ 是定义在观测序列的标记位置 $i$ 上的**状态特征函数**(status feature function) ，用于刻画**观测序列对标记变量的影响**
+* $s_k(y_i,\mathbf{x},i)$ 是定义在观测序列的标记位置 $i$ 上的**状态特征函数**(status feature function) ，用于刻画**观测序列对标记变量的影响**
 
   > 通过指数函数将概率模型中的乘积式转化为了求和式，通过两个特征函数对团内的变量进行建模，这一形式也符合势函数一节中对势函数一般形式的描述
 
@@ -312,16 +312,16 @@ $$
 
 设，有 $K_1$ 个转移特征，$K_2$ 个状态特征，$K=K_1+K_2$ ，记
 $$
-f_k(y_{i+1},y_i,\bold{x},i)=\left\{\begin{array}{l}
-t_k(y_{i+1},y_i,\bold{x},i),&k=1,2,\cdots,K_1\\
-s_l(y_i,\bold{x},i),&k=K_1+l;\quad l=1,2,\cdots,K_2
+f_k(y_{i+1},y_i,\mathbf{x},i)=\left\{\begin{array}{l}
+t_k(y_{i+1},y_i,\mathbf{x},i),&k=1,2,\cdots,K_1\\
+s_l(y_i,\mathbf{x},i),&k=K_1+l;\quad l=1,2,\cdots,K_2
 \end{array}\right.
 $$
 对转移与状态特征在各个位置 $i$ 求和，记作
 $$
-f_k(\bold{y},\bold{x})=\sum_{i=1}^n{f_k(y_{i+1},y_i,\bold{x},i)},\quad k=1,2,\cdots,K
+f_k(\mathbf{y},\mathbf{x})=\sum_{i=1}^n{f_k(y_{i+1},y_i,\mathbf{x},i)},\quad k=1,2,\cdots,K
 $$
-用 $w_k$ 表示特征 $f_k(\bold{y},\bold{x})$ 的权值，即
+用 $w_k$ 表示特征 $f_k(\mathbf{y},\mathbf{x})$ 的权值，即
 $$
 w_k=\left\{\begin{array}{l}
 \lambda_k,&k=1,2,\cdots,K_1\\
@@ -330,100 +330,100 @@ w_k=\left\{\begin{array}{l}
 $$
 所以条件随机场的条件概率可以表示为
 $$
-P(\bold{y}|\bold{x})=\frac{1}{Z}\exp{\sum_{k=1}^K{w_kf_k(\bold{y},\bold{x})}}\\
-Z=\sum_{\bold{y}}{\exp{\sum_{k=1}^K{w_kf_k(\bold{y},\bold{x})}}}
+P(\mathbf{y}|\mathbf{x})=\frac{1}{Z}\exp{\sum_{k=1}^K{w_kf_k(\mathbf{y},\mathbf{x})}}\\
+Z=\sum_{\mathbf{y}}{\exp{\sum_{k=1}^K{w_kf_k(\mathbf{y},\mathbf{x})}}}
 $$
 若以 $w$ 表示权值向量，即 $w=(w_1,w_2,\cdots,w_K)^T$ 
 
-以 $F(\bold{y},\bold{x})$ 表示全局特征向量，即 $F(\bold{y},\bold{x})=(f_1(\bold{y},\bold{x}),f_2(\bold{y},\bold{x}),\cdots,f_K(\bold{y},\bold{x}))^T$ 
+以 $F(\mathbf{y},\mathbf{x})$ 表示全局特征向量，即 $F(\mathbf{y},\mathbf{x})=(f_1(\mathbf{y},\mathbf{x}),f_2(\mathbf{y},\mathbf{x}),\cdots,f_K(\mathbf{y},\mathbf{x}))^T$ 
 
 则条件随机场可以写成这两者的内积形式
 $$
-P_w(\bold{y}|\bold{x})=\frac{\exp(w\cdot F(\bold{y},\bold{x}))}{Z_w}\\
-Z_w=\sum_{\bold{y}}{\exp{w\cdot F(\bold{y},\bold{x})}}
+P_w(\mathbf{y}|\mathbf{x})=\frac{\exp(w\cdot F(\mathbf{y},\mathbf{x}))}{Z_w}\\
+Z_w=\sum_{\mathbf{y}}{\exp{w\cdot F(\mathbf{y},\mathbf{x})}}
 $$
 
 ### 条件随机场的矩阵形式
 
-对每个标记序列引进特殊的起点和终点状态标记 $y_1=\text{start}$ 和 $y_{n}=\text{stop}$ 
+对每个标记序列引进特殊的起点和终点状态标记 $y_0=\text{start}$ 和 $y_{n+1}=\text{stop}$ 
 
-对观测序列 $\bold{x}$ 的每一个位置 $i=1,2,\cdots,n-1$ ，由于 $y_{i+1},y_i$ 在 $m$ 个标记中取值，可以定义一个 $m$ 阶矩阵随机变量
+对观测序列 $\mathbf{x}$ 的每一个位置 $i=1,2,\cdots,n+1$ ，由于 $y_{i-1},y_i$ 在 $m$ 个标记中取值，可以定义一个 $m$ 阶矩阵随机变量
 $$
-M_i(\bold{x})=[M_i(y_{i+1},y_i|\bold{x})]
+M_i(\mathbf{x})=[M_i(y_{i-1},y_i|\mathbf{x})]
 $$
 矩阵随机变量的元素为
 $$
-M_i(y_{i+1},y_i|\bold{x})=\exp(W_i(y_{i+1},y_i|\bold{x}))\\
-W_i(y_{i+1},y_i|\bold{x})=\sum_{k=1}^K{w_kf_k(y_{i+1},y_i,\bold{x},i)}
+M_i(y_{i-1},y_i|\mathbf{x})=\exp(W_i(y_{i-1},y_i|\mathbf{x}))\\
+W_i(y_{i-1},y_i|\mathbf{x})=\sum_{k=1}^K{w_kf_k(y_{i-1},y_i,\mathbf{x},i)}
 $$
-于是，给定观测序列 $\bold{x}$ ，相应标记序列 $\bold{y}$ 的**非规范化概率**可通过该序列 $n-1$ 个矩阵的适当元素的乘积 $\prod_{i=1}^{n-1}{M_i(y_{i+1},y_i|\bold{x})}$ 表示，于是条件概率 $P_w(\bold{y}|\bold{x})$ 是
+于是，给定观测序列 $\mathbf{x}$ ，相应标记序列 $\mathbf{y}$ 的**非规范化概率**可通过该序列 $n+1$ 个矩阵的适当元素的乘积 $\prod_{i=1}^{n+1}{M_i(y_{i-1},y_i|\mathbf{x})}$ 表示，于是条件概率 $P_w(\mathbf{y}|\mathbf{x})$ 是
 $$
-P_w(\bold{y}|\bold{x})=\frac{1}{Z_w}\prod_{i=1}^{n-1}{M_i(y_{i+1},y_i|\bold{x})}\\
-Z_w=[M_1(x)M_2(x)\cdots M_{n-1}(x)]_{\text{start,stop}}
+P_w(\mathbf{y}|\mathbf{x})=\frac{1}{Z_w}\prod_{i=1}^{n+1}{M_i(y_{i-1},y_i|\mathbf{x})}\\
+Z_w=[M_1(x)M_2(x)\cdots M_{n+1}(x)]_{\text{start,stop}}
 $$
-注意，$y_1=\text{start}$ 和 $y_{n}=\text{stop}$ 表示开始状态与终止状态，规范化因子 $Z_w$ 是以 $\text{start}$ 为起点 $\text{stop}$ 为终点通过状态的所有路径 $y_2y_3\cdots y_{n-1}$ 的非规范化概率 $\prod_{i=1}^{n-1}{M_i(y_{i+1},y_i|\bold{x})}$ 之和
+注意，$y_0=\text{start}$ 和 $y_{n+1}=\text{stop}$ 表示开始状态与终止状态，规范化因子 $Z_w$ 是以 $\text{start}$ 为起点 $\text{stop}$ 为终点通过状态的所有路径 $y_1y_2\cdots y_{n}$ 的非规范化概率 $\prod_{i=1}^{n+1}{M_i(y_{i-1},y_i|\mathbf{x})}$ 之和
 
 ## 条件随机场的概率计算
 
-给定条件随机场 $P(Y|X)$ ，输入序列 $\bold{x}$ 和输出序列 $\bold{y}$ ，计算条件概率 $P(Y_i=y_i|\bold{x}),P(Y_{i-1}=y_{i-1},Y_i=y_i|\bold{x})$ 以及相应的数学期望
+给定条件随机场 $P(Y|X)$ ，输入序列 $\mathbf{x}$ 和输出序列 $\mathbf{y}$ ，计算条件概率 $P(Y_i=y_i|\mathbf{x}),P(Y_{i-1}=y_{i-1},Y_i=y_i|\mathbf{x})$ 以及相应的数学期望
 
 ### 前向后向算法
 
-对每个指标 $i=1,2,\cdots,n-1$ 定义前向向量 $\alpha_i(\bold{x})$ 
+对每个指标 $i=0,1,2,\cdots,n+1$ 定义前向向量 $\alpha_i(\mathbf{x})$ 
 $$
-\alpha_1(y,\bold{x})=\left\{\begin{array}{l}
+\alpha_0(y,\mathbf{x})=\left\{\begin{array}{l}
 1,&y=\text{start}\\
 0,&否则
 \end{array}\right.
 $$
 递推公式为
 $$
-\alpha_i^T(y_i|\bold{x})=\alpha_{i-1}^T(y_{i-1}|\bold{x})[M_i(y_{i-1},y_i|\bold{x})],\quad i=2,3,\cdots,n
+\alpha_i^T(y_i|\mathbf{x})=\alpha_{i-1}^T(y_{i-1}|\mathbf{x})[M_i(y_{i-1},y_i|\mathbf{x})],\quad i=1,2,\cdots,n+1
 $$
 也表示为
 $$
-\alpha_i^T(\bold{x})=\alpha_{i-1}^T(\bold{x})M_i(\bold{x})
+\alpha_i^T(\mathbf{x})=\alpha_{i-1}^T(\mathbf{x})M_i(\mathbf{x})
 $$
-由于 $y_i$ 可取的值有 $m$ 个，所以 $\alpha_i(\bold{x})$ 是 $m$ 维列向量
+由于 $y_i$ 可取的值有 $m$ 个，所以 $\alpha_i(\mathbf{x})$ 是 $m$ 维列向量
 
-同理定义后向向量 $\beta_i(\bold{x})$ 
+同理定义后向向量 $\beta_i(\mathbf{x})$ 
 $$
-\beta_n(y_n|\bold{x})=\left\{\begin{array}{l}
+\beta_{n+1}(y_{n+1}|\mathbf{x})=\left\{\begin{array}{l}
 1,&y_{n+1}=\text{stop}\\
 0,&否则
 \end{array}\right.\\
-\beta_i(y_i|\bold{x})=[M_{i+1}(y_i,y_{i+1}|\bold{x})]\beta_{i+1}(y_{i+1}|\bold{x}),\quad i=1,2,\cdots,n-1
+\beta_i(y_i|\mathbf{x})=[M_{i+1}(y_i,y_{i+1}|\mathbf{x})]\beta_{i+1}(y_{i+1}|\mathbf{x}),\quad i=1,2,\cdots,n-1
 $$
 也表示为
 $$
-\beta_i(\bold{x})=M_{i+1}(\bold{x})\beta_{i+1}(\bold{x})
+\beta_i(\mathbf{x})=M_{i+1}(\mathbf{x})\beta_{i+1}(\mathbf{x})
 $$
 
 ### 概率计算
 
 $$
-P(Y_i=y_i|\bold{x})=\frac{\alpha_i^T(y_i|\bold{x})\beta_i(y_i|\bold{x})}{Z}\\
-P(Y_{i-1}=y_{i-1},Y_i=y_i|\bold{x})=\frac{\alpha_{i-1}^T(y_{i-1}|\bold{x})M_i(y_{i-1},y_i|\bold{x})\beta_i(y_i|\bold{x})}{Z}\\
-Z=\alpha_n^T(\bold{x})\bold{1}=\bold{1}\beta_1(x)
+P(Y_i=y_i|\mathbf{x})=\frac{\alpha_i^T(y_i|\mathbf{x})\beta_i(y_i|\mathbf{x})}{Z}\\
+P(Y_{i-1}=y_{i-1},Y_i=y_i|\mathbf{x})=\frac{\alpha_{i-1}^T(y_{i-1}|\mathbf{x})M_i(y_{i-1},y_i|\mathbf{x})\beta_i(y_i|\mathbf{x})}{Z}\\
+Z=\alpha_n^T(\mathbf{x})\mathbf{1}=\mathbf{1}\beta_1(x)
 $$
 
-其中，$\bold{1}$ 是元素均为1的 $m$ 维列向量
+其中，$\mathbf{1}$ 是元素均为1的 $m$ 维列向量
 
 ### 期望计算
 
 特征函数 $f_k$ 关于条件分布 $P(Y|X)$ 的数学期望是
 $$
 \begin{split}
-E_{P(Y|X)}[f_k]&=\sum_y{P(y|x)f(y,\bold{x})}\\
-&=\sum_{i=1}^{n-1}{\sum_{y_{i+1}y_i}{f_k(y_{i+1},y_i,\bold{x},i)\frac{\alpha_{i-1}^T(y_{i-1}|\bold{x})M_i(y_{i-1},y_i|\bold{x})\beta_i(y_i|\bold{x})}{Z}}}
+E_{P(Y|X)}[f_k]&=\sum_y{P(y|x)f(y,\mathbf{x})}\\
+&=\sum_{i=1}^{n+1}{\sum_{y_{i-1}y_i}{f_k(y_{i-1},y_i,\mathbf{x},i)\frac{\alpha_{i-1}^T(y_{i-1}|\mathbf{x})M_i(y_{i-1},y_i|\mathbf{x})\beta_i(y_i|\mathbf{x})}{Z}}}
 \end{split}
 $$
 假设经验分布为 $\tilde{P}(X)$ ，特征函数 $f_k$ 关于联合分布 $P(X,Y)$ 的数学期望是
 $$
 \begin{split}
-E_{P(Y,X)}[f_k]&=\sum_{x,y}{P(x,y)\sum_{i=1}^{n-1}{f_k(y_{i+1},y_i,\bold{x},i)}}\\
-&=\sum_{x}{\tilde{P}(x)\sum_y{P(y|x)\sum_{i=1}^{n-1}{f_k(y_{i+1},y_i,\bold{x},i)}}}\\
-&=\sum_x{\tilde{P}(x)\sum_{i=1}^{n-1}{\sum_{y_{i+1}y_i}{f_k(y_{i+1},y_i,\bold{x},i)\frac{\alpha_{i-1}^T(y_{i-1}|\bold{x})M_i(y_{i-1},y_i|\bold{x})\beta_i(y_i|\bold{x})}{Z}}}}
+E_{P(Y,X)}[f_k]&=\sum_{x,y}{P(x,y)\sum_{i=1}^{n+1}{f_k(y_{i-1},y_i,\mathbf{x},i)}}\\
+&=\sum_{x}{\tilde{P}(x)\sum_y{P(y|x)\sum_{i=1}^{n+1}{f_k(y_{i-1},y_i,\mathbf{x},i)}}}\\
+&=\sum_x{\tilde{P}(x)\sum_{i=1}^{n+1}{\sum_{y_{i-1}y_i}{f_k(y_{i-1},y_i,\mathbf{x},i)\frac{\alpha_{i-1}^T(y_{i-1}|\mathbf{x})M_i(y_{i-1},y_i|\mathbf{x})\beta_i(y_i|\mathbf{x})}{Z}}}}
 \end{split}
 $$
 
@@ -442,13 +442,13 @@ $$
 **边际化** (marginalization)：例如在马尔可夫网中，变量的联合分布被表示成极大团的势函数乘积，于
 是，给定参数 $\Theta$ 求解某个变量 $x$ 的分布，就变成对联合分布中其他无关变量进行积分的过程
 
-假设图模型所对应的变量集 $\bold{x}=\{x_1,x_2,\cdots,x_N\}$ 能分为 $\bold{x}_E$ 和 $\bold{x}_F$ 两个不相交的变量集，**推断问题的目标**就是计算边际概率 $P(\bold{x}_F)$ 或条件概率 $P(\bold{x}_F|\bold{x}_E)$ ，由条件概率定义有
+假设图模型所对应的变量集 $\mathbf{x}=\{x_1,x_2,\cdots,x_N\}$ 能分为 $\mathbf{x}_E$ 和 $\mathbf{x}_F$ 两个不相交的变量集，**推断问题的目标**就是计算边际概率 $P(\mathbf{x}_F)$ 或条件概率 $P(\mathbf{x}_F|\mathbf{x}_E)$ ，由条件概率定义有
 $$
-P(\bold{x}_F|\bold{x}_E)=\frac{P(\bold{x}_E,\bold{x}_F)}{P(\bold{x}_E)}=\frac{P(\bold{x}_E,\bold{x}_F)}{\sum_{\bold{x}_F}{P(\bold{x}_E,\bold{x}_F)}}
+P(\mathbf{x}_F|\mathbf{x}_E)=\frac{P(\mathbf{x}_E,\mathbf{x}_F)}{P(\mathbf{x}_E)}=\frac{P(\mathbf{x}_E,\mathbf{x}_F)}{\sum_{\mathbf{x}_F}{P(\mathbf{x}_E,\mathbf{x}_F)}}
 $$
-其中联合概率 $P(\bold{x}_E,\bold{x}_F)$ 可基于概率图模型获得，因此推断模型的关键就是**如何高效地计算边际分布**：
+其中联合概率 $P(\mathbf{x}_E,\mathbf{x}_F)$ 可基于概率图模型获得，因此推断模型的关键就是**如何高效地计算边际分布**：
 $$
-\sum_{\bold{x}_F}{P(\bold{x}_E,\bold{x}_F)}
+\sum_{\mathbf{x}_F}{P(\mathbf{x}_E,\mathbf{x}_F)}
 $$
 概率图模型的推断方法大致分两类：
 
@@ -459,7 +459,7 @@ $$
 
 精确推断的实质是一类**动态规划**算法，它利用图模型所描述的条件独立性来削减计算目标概率值所需的计算量。
 
-![8ca9c31c05b68fb85f496bfb865420df.png](_resources/8ca9c31c05b68fb85f496bfb865420df.png)
+![8ca9c31c05b68fb85f496bfb865420df.png](../../../_resources/8ca9c31c05b68fb85f496bfb865420df.png)
 
 假定推断目标是计算边际概率 $P(x_5)$ ，显然，为了完成此目标，只需通过加法消去变量 $\{x_1,x_2,x_3,x_4\}$，即
 $$
@@ -532,44 +532,44 @@ $$
 $$
 p(f)=\mathbb{E}_p[f(X)]=\int_x{f(x)p(x)dx}
 $$
-若 $x$ 不是单变量而是一个高维多元变量 $\bold{x}$，且服从一个非常复杂的分布，则对上式求积分通常很困难。为此， MCMC 先构造出**服从 $p$ 分布的独立同分布随机变量** $\bold{x}_1,\bold{x}_2,\cdots,\bold{x}_N$， 再得到上式的无偏估计：
+若 $x$ 不是单变量而是一个高维多元变量 $\mathbf{x}$，且服从一个非常复杂的分布，则对上式求积分通常很困难。为此， MCMC 先构造出**服从 $p$ 分布的独立同分布随机变量** $\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_N$， 再得到上式的无偏估计：
 $$
-\tilde{p}(f)=\frac{1}{N}\sum_{i=1}^{N}{f(\bold{x}_i)}
+\tilde{p}(f)=\frac{1}{N}\sum_{i=1}^{N}{f(\mathbf{x}_i)}
 $$
 **MCMC 方法的关键**在于通过构造“**平稳分布为 $p$ 的马尔可夫链**”来产生样本：若马尔可夫链运行时间足够长（即收敛到平稳状态） ，则此时产出的样本 $x$ 近似服从于分布 $p$ 
 
-假定平稳马尔可夫链 $T$ 的状态转移概率（即从状态 $\bold{x}$ 转移到状态 $\bold{x}'$ 的概率）为 $T(\bold{x}'|\bold{x})$，$t$ 时刻状态的分布为 $p(\bold{x}^t)$ ，则若在某个时刻马尔可夫链满足**平稳条件**
+假定平稳马尔可夫链 $T$ 的状态转移概率（即从状态 $\mathbf{x}$ 转移到状态 $\mathbf{x}'$ 的概率）为 $T(\mathbf{x}'|\mathbf{x})$，$t$ 时刻状态的分布为 $p(\mathbf{x}^t)$ ，则若在某个时刻马尔可夫链满足**平稳条件**
 $$
-p(\bold{x}^t)T(\bold{x}^{t-1}|\bold{x}^t)=p(\bold{x}^{t-1})T(\bold{x}^t|\bold{x}^{t-1})
+p(\mathbf{x}^t)T(\mathbf{x}^{t-1}|\mathbf{x}^t)=p(\mathbf{x}^{t-1})T(\mathbf{x}^t|\mathbf{x}^{t-1})
 $$
-则 $p(\bold{x})$ 是该马尔可夫链的平稳分布，且马尔可夫链在满足该条件时巳**收敛到平稳状态**。
+则 $p(\mathbf{x})$ 是该马尔可夫链的平稳分布，且马尔可夫链在满足该条件时巳**收敛到平稳状态**。
 
 ### MH (Metropolis-Hastings) 算法
 
-基于“拒绝采样” (rejeet sampling) 来逼近平稳分布 $p$ ，算法每次根据上一轮采样结果 $\bold{x}^{t-1}$ 来采样获得候选状态样本 $\bold{x}^*$，但这个候选样本会以一定的概率被“拒绝”掉。
+基于“拒绝采样” (rejeet sampling) 来逼近平稳分布 $p$ ，算法每次根据上一轮采样结果 $\mathbf{x}^{t-1}$ 来采样获得候选状态样本 $\mathbf{x}^*$，但这个候选样本会以一定的概率被“拒绝”掉。
 
-假定从状态 $\bold{x}^{t-1}$ 到状态 $\bold{x}^*$ 的转移概率为 $Q(\bold{x}^*|\bold{x}^{t-1})A(\bold{x}^*|\bold{x}^{t-1})$ ，其中 $Q(\bold{x}^*|\bold{x}^{t-1})$ 是用户给定的**先验概率**， $A(\bold{x}^*|\bold{x}^{t-1})$ 是 $\bold{x}^*$ 被**接受的概率**。若 $\bold{x}^*$ 最终收敛到平稳状态，则有
+假定从状态 $\mathbf{x}^{t-1}$ 到状态 $\mathbf{x}^*$ 的转移概率为 $Q(\mathbf{x}^*|\mathbf{x}^{t-1})A(\mathbf{x}^*|\mathbf{x}^{t-1})$ ，其中 $Q(\mathbf{x}^*|\mathbf{x}^{t-1})$ 是用户给定的**先验概率**， $A(\mathbf{x}^*|\mathbf{x}^{t-1})$ 是 $\mathbf{x}^*$ 被**接受的概率**。若 $\mathbf{x}^*$ 最终收敛到平稳状态，则有
 $$
-p(\bold{x}^{t-1})Q(\bold{x}^*|\bold{x}^{t-1})A(\bold{x}^*|\bold{x}^{t-1})=p(\bold{x}^*)Q(\bold{x}^{t-1}|\bold{x}^*)A(\bold{x}^{t-1}|\bold{x}^*)
+p(\mathbf{x}^{t-1})Q(\mathbf{x}^*|\mathbf{x}^{t-1})A(\mathbf{x}^*|\mathbf{x}^{t-1})=p(\mathbf{x}^*)Q(\mathbf{x}^{t-1}|\mathbf{x}^*)A(\mathbf{x}^{t-1}|\mathbf{x}^*)
 $$
 为了达到平稳状态，只需将接受率设置为
 $$
-A(\bold{x}^*|\bold{x}^{t-1})=\min{\left(1,\frac{p(\bold{x}^*)Q(\bold{x}^{t-1}|\bold{x}^*)}{p(\bold{x}^{t-1})Q(\bold{x}^*|\bold{x}^{t-1})}\right)}
+A(\mathbf{x}^*|\mathbf{x}^{t-1})=\min{\left(1,\frac{p(\mathbf{x}^*)Q(\mathbf{x}^{t-1}|\mathbf{x}^*)}{p(\mathbf{x}^{t-1})Q(\mathbf{x}^*|\mathbf{x}^{t-1})}\right)}
 $$
 
 ### 吉布斯采样 Gibbs sampling
 
-被视为 MH 算法的特例，它也使用马尔可夫链获取样本，而该马尔可夫链的平稳分布也是采样的目标分布 $p(\bold{x})$ 
+被视为 MH 算法的特例，它也使用马尔可夫链获取样本，而该马尔可夫链的平稳分布也是采样的目标分布 $p(\mathbf{x})$ 
 
-假定 $\bold{x}=\{x_1,x_2,\cdots,x_N\}$ ，目标分布为 $p(\bold{x})$ ，在初始化 $\bold{x}$ 的取值后，通过循环执行以下步骤来完成采样：
+假定 $\mathbf{x}=\{x_1,x_2,\cdots,x_N\}$ ，目标分布为 $p(\mathbf{x})$ ，在初始化 $\mathbf{x}$ 的取值后，通过循环执行以下步骤来完成采样：
 
 * 随机或以某个次序选取某变量 $x_i$ 
 
-* 根据 $\bold{x}$ 中除 $x_i$ 外的变量的现有取值，计算条件概率 $p(x_i|\bold{x}_{\bar{i}})$ ，
+* 根据 $\mathbf{x}$ 中除 $x_i$ 外的变量的现有取值，计算条件概率 $p(x_i|\mathbf{x}_{\bar{i}})$ ，
 
-  其中 $\bold{x}_{\bar{i}}=\{x_1,x_2,\cdots,x_{i-1},x_{i+1},\cdots,x_N\}$ 
+  其中 $\mathbf{x}_{\bar{i}}=\{x_1,x_2,\cdots,x_{i-1},x_{i+1},\cdots,x_N\}$ 
 
-* 根据 $p(x_i|\bold{x}_{\bar{i}})$ 对变量 $x_i$ 采样，用采样值代替原值
+* 根据 $p(x_i|\mathbf{x}_{\bar{i}})$ 对变量 $x_i$ 采样，用采样值代替原值
 
 ## 变分推断
 
@@ -579,63 +579,63 @@ $$
 
 相互独立的、由相同机制生成的多个变量被放在一个方框(盘)内，并在方框中标出类似变量重复出现的个数 $N$ ；方框可以嵌套。 通常用阴影标注出已知的、能观察到的变量
 
-![d092def73942d23cea21e59fd9484dcf.png](_resources/d092def73942d23cea21e59fd9484dcf.png)
+![d092def73942d23cea21e59fd9484dcf.png](../../../_resources/d092def73942d23cea21e59fd9484dcf.png)
 
 ### 变分推断
 
 所有能观察到的变量 $x$ 的联合分布的概率密度函数是
 $$
-p(\bold{x}|\Theta)=\prod_{i=1}^{N}{\sum_{\bold{z}}{p(x_i,\bold{z}|\Theta)}}
+p(\mathbf{x}|\Theta)=\prod_{i=1}^{N}{\sum_{\mathbf{z}}{p(x_i,\mathbf{z}|\Theta)}}
 $$
 其所对应的对数似然函数为
 $$
-\ln{p(\bold{x}|\Theta)}=\sum_{i=1}^{N}{\ln{\left\{\sum_{\bold{z}}{p(x_i,\bold{z}|\Theta)}\right\}}}
+\ln{p(\mathbf{x}|\Theta)}=\sum_{i=1}^{N}{\ln{\left\{\sum_{\mathbf{z}}{p(x_i,\mathbf{z}|\Theta)}\right\}}}
 $$
-其中，$\bold{x}=\{x_1,x_2,\cdots,x_N\}$ ，$\Theta$ 是 $\bold{x}$ 与 $\bold{z}$ 服从的分布参数
+其中，$\mathbf{x}=\{x_1,x_2,\cdots,x_N\}$ ，$\Theta$ 是 $\mathbf{x}$ 与 $\mathbf{z}$ 服从的分布参数
 
 概率模型的参数估计通常以最大化对数似然函数为手段，使用 EM 算法：
 
-* 在 E 步：根据 $t$ 时刻的参数 $\Theta^t$ 对 $p(\bold{z}|\bold{x},\Theta^t)$ 进行推断，并计算联合似然函数 $p(\bold{x},\bold{z}|\Theta)$ 
+* 在 E 步：根据 $t$ 时刻的参数 $\Theta^t$ 对 $p(\mathbf{z}|\mathbf{x},\Theta^t)$ 进行推断，并计算联合似然函数 $p(\mathbf{x},\mathbf{z}|\Theta)$ 
 
 * 在 M 步：基于 E 步的结果进行最大化寻优，即对关于变量 $\Theta$ 的函数 $\mathcal{Q}(\Theta;\Theta^t)$ 进行最大化从而求取
   $$
-  \Theta^{t+1}=\mathop{\arg\max}\limits_{\Theta}\mathcal{Q}(\Theta;\Theta^t)=\mathop{\arg\max}\limits_{\Theta}\sum_{\bold{z}}{p(\bold{z}|\bold{x},\Theta^t)\ln{p(\bold{x},\bold{z}|\Theta)}}
+  \Theta^{t+1}=\mathop{\arg\max}\limits_{\Theta}\mathcal{Q}(\Theta;\Theta^t)=\mathop{\arg\max}\limits_{\Theta}\sum_{\mathbf{z}}{p(\mathbf{z}|\mathbf{x},\Theta^t)\ln{p(\mathbf{x},\mathbf{z}|\Theta)}}
   $$
-  其中，$\mathcal{Q}(\Theta;\Theta^t)$ 实际上是对数联合似然函数 $\ln{p(\bold{x},\bold{z}|\Theta)}$ 在分布 $p(\bold{z}|\bold{x},\Theta^t)$ 下的期望，当该分布与变量 $\bold{z}$ 的真实后验分布相等时，$\mathcal{Q}(\Theta;\Theta^t)$ 近似于**对数似然函数**。于是， EM 算法最终可获得稳定的参数。而隐变量 $\bold{z}$ 的分布也能通过该参数获得。
+  其中，$\mathcal{Q}(\Theta;\Theta^t)$ 实际上是对数联合似然函数 $\ln{p(\mathbf{x},\mathbf{z}|\Theta)}$ 在分布 $p(\mathbf{z}|\mathbf{x},\Theta^t)$ 下的期望，当该分布与变量 $\mathbf{z}$ 的真实后验分布相等时，$\mathcal{Q}(\Theta;\Theta^t)$ 近似于**对数似然函数**。于是， EM 算法最终可获得稳定的参数。而隐变量 $\mathbf{z}$ 的分布也能通过该参数获得。
 
-上述的 $p(\bold{z}|\bold{x},\Theta^t)$ 未必是隐变量 $\bold{z}$ 服从的真实分布，而只是一个近似分布，将该近似分布用 $q(\bold{z})$ 表示，==则有==（这一部分的推导请见[PGM MVS]([PGM MVS ](../../../Work/Learn/PGM/PGM%20MVS_.md))）
+上述的 $p(\mathbf{z}|\mathbf{x},\Theta^t)$ 未必是隐变量 $\mathbf{z}$ 服从的真实分布，而只是一个近似分布，将该近似分布用 $q(\mathbf{z})$ 表示，==则有==（这一部分的推导请见[PGM MVS]([PGM MVS ](../../../undefined))）
 $$
-\ln{p(\bold{x})}=\mathcal{L}(q)+\mathrm{KL}(q\|p)
+\ln{p(\mathbf{x})}=\mathcal{L}(q)+\mathrm{KL}(q\|p)
 $$
 其中
 $$
-\mathcal{L}(q)=\int{q(\bold{z})\ln{\left\{\frac{p(\bold{x},\bold{z})}{q(\bold{z})}\right\}}\mathrm{d}\bold{z}}\\
-\mathrm{KL}(q\|p)=-\int{q(\bold{z})\ln{\frac{p(\bold{z}|\bold{x})}{q(\bold{z})}}\mathrm{d}\bold{z}}
+\mathcal{L}(q)=\int{q(\mathbf{z})\ln{\left\{\frac{p(\mathbf{x},\mathbf{z})}{q(\mathbf{z})}\right\}}\mathrm{d}\mathbf{z}}\\
+\mathrm{KL}(q\|p)=-\int{q(\mathbf{z})\ln{\frac{p(\mathbf{z}|\mathbf{x})}{q(\mathbf{z})}}\mathrm{d}\mathbf{z}}
 $$
-但通常，E 步对 $p(\bold{z}|\bold{x},\Theta^t)$ 的推断很可能因 $\bold{z}$ 模型复杂而难以进行，此时可借助**变分推断**。通常假设 $z$ 服从分布
+但通常，E 步对 $p(\mathbf{z}|\mathbf{x},\Theta^t)$ 的推断很可能因 $\mathbf{z}$ 模型复杂而难以进行，此时可借助**变分推断**。通常假设 $z$ 服从分布
 $$
-q(\bold{z})=\prod_{i=1}^{M}{q_i(\bold{z}_i)}
+q(\mathbf{z})=\prod_{i=1}^{M}{q_i(\mathbf{z}_i)}
 $$
-即假设复杂的多变量 $\bold{z}$ 可拆解为一系列**相互独立**的多变量 $\bold{z}_i$ ， 更重要的是，可以令 $q_i$ **分布相对简单**或有**很好的结构**，例如假设 $q_i$ 为**指数族 (exponential family)** 分布，此时有
+即假设复杂的多变量 $\mathbf{z}$ 可拆解为一系列**相互独立**的多变量 $\mathbf{z}_i$ ， 更重要的是，可以令 $q_i$ **分布相对简单**或有**很好的结构**，例如假设 $q_i$ 为**指数族 (exponential family)** 分布，此时有
 $$
 \begin{split}
-\mathcal{L}(q)&=\int{\prod_{i}{q_i\left\{\ln{p(\bold{x,\bold{z}})}-\sum_{i}{\ln{q_i}}\right\}}\mathrm{d}\bold{z}}\\
-&=\int{q_j\left\{\int{\ln{p(\bold{x},\bold{z})}\prod_{i\ne j}{q_i}\mathrm{d}\bold{z}_i}\right\}\mathrm{d}\bold{z}_j}-\int{q_j\ln{q_j}\mathrm{d}\bold{z}_j}+\mathrm{const}\\
-&=\int{q_j\ln{\tilde{p}(\bold{x},\bold{z}_j)}\mathrm{d}\bold{z}_j}-\int{q_j\ln{q_j}\mathrm{d}\bold{z}_j}+\mathrm{const}
+\mathcal{L}(q)&=\int{\prod_{i}{q_i\left\{\ln{p(\mathbf{x,\mathbf{z}})}-\sum_{i}{\ln{q_i}}\right\}}\mathrm{d}\mathbf{z}}\\
+&=\int{q_j\left\{\int{\ln{p(\mathbf{x},\mathbf{z})}\prod_{i\ne j}{q_i}\mathrm{d}\mathbf{z}_i}\right\}\mathrm{d}\mathbf{z}_j}-\int{q_j\ln{q_j}\mathrm{d}\mathbf{z}_j}+\mathrm{const}\\
+&=\int{q_j\ln{\tilde{p}(\mathbf{x},\mathbf{z}_j)}\mathrm{d}\mathbf{z}_j}-\int{q_j\ln{q_j}\mathrm{d}\mathbf{z}_j}+\mathrm{const}
 \end{split}
 $$
 其中，
 $$
-\ln{\tilde{p}(\bold{x},\bold{z}_j)}=\mathbb{E}_{i\ne j}[\ln{p(\bold{x},\bold{z})}]+\mathrm{const}\\
-\mathbb{E}_{i\ne j}[\ln{p(\bold{x},\bold{z})}]=\int{\ln{p(\bold{x},\bold{z})}\prod_{i\ne j}{q_i}\mathrm{d}\bold{z}_i}
+\ln{\tilde{p}(\mathbf{x},\mathbf{z}_j)}=\mathbb{E}_{i\ne j}[\ln{p(\mathbf{x},\mathbf{z})}]+\mathrm{const}\\
+\mathbb{E}_{i\ne j}[\ln{p(\mathbf{x},\mathbf{z})}]=\int{\ln{p(\mathbf{x},\mathbf{z})}\prod_{i\ne j}{q_i}\mathrm{d}\mathbf{z}_i}
 $$
-固定 $q_{i\ne j}$ 再对 $\mathcal{L}(q)$ 进行最大化，可以得到，当 $q_j=\tilde{p}(\bold{x},\bold{z}_j)$ 时 $\mathcal{L}(q)$ 最大，所以变量子集 $\bold{z}_j$ 所服从的最优分布 $q_j^*$ 应满足
+固定 $q_{i\ne j}$ 再对 $\mathcal{L}(q)$ 进行最大化，可以得到，当 $q_j=\tilde{p}(\mathbf{x},\mathbf{z}_j)$ 时 $\mathcal{L}(q)$ 最大，所以变量子集 $\mathbf{z}_j$ 所服从的最优分布 $q_j^*$ 应满足
 $$
-\ln{q_j^*(\bold{z}_j)}=\mathbb{E}_{i\ne j}[\ln{p(\bold{x},\bold{z})}]+\mathrm{const}
+\ln{q_j^*(\mathbf{z}_j)}=\mathbb{E}_{i\ne j}[\ln{p(\mathbf{x},\mathbf{z})}]+\mathrm{const}
 $$
 即，
 $$
-q_j^*(\bold{z}_j)=\frac{\exp{(\mathbb{E}_{i\ne j}[\ln{p(\bold{x},\bold{z})}])}}{\int{\exp{(\mathbb{E}_{i\ne j}[\ln{p(\bold{x},\bold{z})}])}}\mathrm{d}\bold{z}_j}
+q_j^*(\mathbf{z}_j)=\frac{\exp{(\mathbb{E}_{i\ne j}[\ln{p(\mathbf{x},\mathbf{z})}])}}{\int{\exp{(\mathbb{E}_{i\ne j}[\ln{p(\mathbf{x},\mathbf{z})}])}}\mathrm{d}\mathbf{z}_j}
 $$
 上式即为变量子集 $z_j$ 最接近真实情形的分布
 
@@ -653,7 +653,7 @@ $$
 
 假定数据集中一共包含 $K$ 个话题和 $T$ 篇文档，文档中的词来自一个包含 $N$ 个词的词典
 
-* 用 $T$ 个 $N$ 维向量 $\bold{W}=\{\boldsymbol{w}_1,\boldsymbol{w}_2,\cdots,\boldsymbol{w}_T\}$ 表示数据集（即文档集合），其中 $\boldsymbol{w}_t\in\mathbb{R}^N$ 的第 $n$ 个分量 $\boldsymbol{w}_{t,n}$ 表示文档 $t$ 中词 $n$ 的词频
+* 用 $T$ 个 $N$ 维向量 $\mathbf{W}=\{\boldsymbol{w}_1,\boldsymbol{w}_2,\cdots,\boldsymbol{w}_T\}$ 表示数据集（即文档集合），其中 $\boldsymbol{w}_t\in\mathbb{R}^N$ 的第 $n$ 个分量 $\boldsymbol{w}_{t,n}$ 表示文档 $t$ 中词 $n$ 的词频
 * 用 $K$ 个 $N$ 维向量 $\beta_k(k=1,2,\cdots,K)$ 表示话题，$\beta_k\in\mathbb{R}^N$ 的第 $n$ 个分量 $\beta_{k,n}$ 表示话题 $k$ 中词 $n$ 的词频
 
 ## 隐狄利克雷分配模型 Latent Dirichlet Allocation, LDA
@@ -665,16 +665,16 @@ $$
   * 根据 $\Theta_t$ 进行话题指派，得到文档 $t$ 中词 $n$ 的话题 $z_{t,n}$ 
   * 根据指派的话题所对应的词频分布 $\beta_k$ 随机采样生成词
 
-![92379d9c1d9085b255cb115a60dd5697.png](_resources/92379d9c1d9085b255cb115a60dd5697.png)
+![92379d9c1d9085b255cb115a60dd5697.png](../../../_resources/92379d9c1d9085b255cb115a60dd5697.png)
 
 通过 LDA 的盘式记法，描述了它的变量关系，其中文档中的词频 $w_{t,n}$ 是唯一的己观测变量，它依赖于对这个词进行的话题指派 $z_{t,n}$ 以及话题所对应的词频 $\beta_k$ ；同时，话题指派 $z_{t,n}$ 依赖于话题分布 $\Theta_t$，$\Theta_t$ 依赖于狄利克雷分布的参数 $\boldsymbol{\alpha}$ 而话题词频则依赖于参数 $\boldsymbol{\eta}$ 
 
-![46aa5fdbe27a7cf34f95a1edc8b91d2c.png](_resources/46aa5fdbe27a7cf34f95a1edc8b91d2c.png)
+![46aa5fdbe27a7cf34f95a1edc8b91d2c.png](../../../_resources/46aa5fdbe27a7cf34f95a1edc8b91d2c.png)
 
 由此得到 LDA 模型对应的概率分布
 $$
 \begin{split}
-&p(\bold{W},\bold{z},\boldsymbol{\beta},\Theta|\boldsymbol{\alpha},\boldsymbol{\eta})=\\
+&p(\mathbf{W},\mathbf{z},\boldsymbol{\beta},\Theta|\boldsymbol{\alpha},\boldsymbol{\eta})=\\
 &\prod_{t=1}^{T}{p(\Theta_t|\boldsymbol{\alpha})\prod_{k=1}^K{p(\boldsymbol{\beta}_k|\boldsymbol{\eta})\left(\prod_{n=1}^N{P(w_{t,n}|z_{t,n},\boldsymbol{\beta}_k)P(z_{t,n}|\Theta_t)}\right)}}
 \end{split}
 $$
@@ -684,7 +684,7 @@ p(\Theta_t|\boldsymbol{\alpha})=\frac{\Gamma(\sum_k{\alpha_k})}{\prod_k{\Gamma(\
 $$
 其中 $\Gamma(\cdot)$ 是Gamma 函数
 
-给定训练数据 $\bold{W}=\{\boldsymbol{w}_1,\boldsymbol{w}_2,\cdots,\boldsymbol{w}_T\}$， LDA 的模型参数可通过极大似然法估计，即寻找 $\boldsymbol{\alpha}$ 和 $\boldsymbol{\eta}$ 以最大化对数似然
+给定训练数据 $\mathbf{W}=\{\boldsymbol{w}_1,\boldsymbol{w}_2,\cdots,\boldsymbol{w}_T\}$， LDA 的模型参数可通过极大似然法估计，即寻找 $\boldsymbol{\alpha}$ 和 $\boldsymbol{\eta}$ 以最大化对数似然
 $$
 LL(\boldsymbol{\alpha},\boldsymbol{\eta})=\sum_{t=1}^{T}{\ln{p(\boldsymbol{w}_t|\boldsymbol{\alpha},\boldsymbol{\eta})}}
 $$
@@ -692,14 +692,14 @@ $$
 
 若模型已知，即参数 $\boldsymbol{\alpha}$ 和 $\boldsymbol{\eta}$ 己确定，则根据词频 $w_{t,n}$ 来推断文档集所对应的话题结构（即推断 $\Theta_t,\beta_k,z_{t,n}$）可通过求解
 $$
-p(\bold{z},\boldsymbol{\beta},\Theta|\bold{W},\boldsymbol{\alpha},\boldsymbol{\eta})=\frac{p(\bold{W},\bold{z},\boldsymbol{\beta},\Theta|\boldsymbol{\alpha},\boldsymbol{\eta})}{p(\bold{W}|\boldsymbol{\alpha},\boldsymbol{\eta})}
+p(\mathbf{z},\boldsymbol{\beta},\Theta|\mathbf{W},\boldsymbol{\alpha},\boldsymbol{\eta})=\frac{p(\mathbf{W},\mathbf{z},\boldsymbol{\beta},\Theta|\boldsymbol{\alpha},\boldsymbol{\eta})}{p(\mathbf{W}|\boldsymbol{\alpha},\boldsymbol{\eta})}
 $$
-由于分母上的 $p(\bold{W}|\boldsymbol{\alpha},\boldsymbol{\eta})$ 难以获取，上式难以直接求解，因此在实践中常采用吉布斯采样或变分法进行近似推断
+由于分母上的 $p(\mathbf{W}|\boldsymbol{\alpha},\boldsymbol{\eta})$ 难以获取，上式难以直接求解，因此在实践中常采用吉布斯采样或变分法进行近似推断
 
 # EM 算法
 
 > 另一种定义方式请参考《机器学习》周志华 [PGM MVS
-](../../../Work/Learn/PGM/PGM%20MVS_.md)
+](../../../undefined)
 ## 算法
 
 输入：观测变量数据 $Y$ ，隐变量数据 $Z$ ，联合分布 $P(Y,Z|\theta)$ ，条件分布 $P(Z|Y,\theta)$ 
@@ -775,7 +775,7 @@ $$
 \end{split}
 $$
 
-![db5258dcb1f4ebe6e97895f14c72d909.png](_resources/db5258dcb1f4ebe6e97895f14c72d909.png)
+![db5258dcb1f4ebe6e97895f14c72d909.png](../../../_resources/db5258dcb1f4ebe6e97895f14c72d909.png)
 
 ## EM 算法的收敛性
 
@@ -831,7 +831,7 @@ $$
 ## 推广：GEM 算法
 
 > 更好的推导方式请参考 [PGM MVS
-](../../../Work/Learn/PGM/PGM%20MVS_.md) 中的定义
+](../../../undefined) 中的定义
 
 ### F 函数
 
