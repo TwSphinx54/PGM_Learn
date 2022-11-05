@@ -272,6 +272,10 @@ $$
 
 # 条件随机场 Conditional Random Field
 
+> 更详细的关于条件随机场的论述请阅读
+> 
+> Sutton, Charles, and Andrew McCallum. “An Introduction to Conditional Random Fields.” arXiv, November 17, 2010. http://arxiv.org/abs/1011.4088.
+
 是一种**判别式**无向图模型。与隐马尔可夫模型和马尔可夫随机场不同的是，条件随机场是对**条件分布**进行建模，而之前两者则是对**联合分布**进行建模。
 
 是给定一组输入随机变量的条件下另一组输出随机变量的**条件概率分布模型**，其特点是假设**输出随机变量构成马尔可夫随机场**
