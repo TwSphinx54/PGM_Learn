@@ -24,7 +24,7 @@
 
 **隐马尔可夫模型**(Hidden Markov Model，简称HMM) 是结构最筒单的**动态贝叶斯网**(dynamic Bayesian network)：隐马尔可夫模型是**关于时序**的概率模型，描述由**一个隐藏的马尔可夫链随机生成不可观测的状态随机序列**，再由各个状态生成一个观测从而**产生观测随机序列**的过程。隐藏的马尔可夫链随机生成的状态的序列，称为**状态序列**（state）；每个状态生成一个观测，而由此产生的观测的随机序列，称为**观测序列**（observation sequence）。序列的每一个位置又可以看作是一个时刻。
 
-![image-20221005144627550.png](_resources/image-20221005144627550.png)
+![image-20221005144627550.png](./_resources/image-20221005144627550.png)
 
 
 * 状态变量（隐变量）： $\{y_1,y_2,\cdots,y_n\}$ ，其中 $y_i\in\mathcal{Y}$ 表示第 $i$ 时刻的系统状态，
@@ -104,7 +104,7 @@ $$
 
 3. 终止：$P(O|\lambda)=\sum_{i=1}^N{\alpha_T(i)}$ 
 
-![f7284a337fcbfff2c32f0c3b2e70107c.png](_resources/f7284a337fcbfff2c32f0c3b2e70107c.png)
+![f7284a337fcbfff2c32f0c3b2e70107c.png](./_resources/f7284a337fcbfff2c32f0c3b2e70107c.png)
 
 > 前向算法使用基于“状态序列的路径结构”递推计算观测序列概率。
 >
@@ -225,7 +225,7 @@ $$
 
 * **势函数**(potential functions) ，亦称"**因子**" (factor) ，这是定义在变量子集上的非负实函数， 主要用于定义概率分布函数。
 
-![32eebc8b45f4a27406a0765e9aa219e6.png](_resources/32eebc8b45f4a27406a0765e9aa219e6.png)
+![32eebc8b45f4a27406a0765e9aa219e6.png](./_resources/32eebc8b45f4a27406a0765e9aa219e6.png)
 
 ## 条件独立性
 
@@ -292,7 +292,7 @@ $$
 
 ## 链式条件随机场 chain-structured CRF
 
-![cb3a86990612cc4c4fb11cd7f44ede68.png](_resources/cb3a86990612cc4c4fb11cd7f44ede68.png)
+![cb3a86990612cc4c4fb11cd7f44ede68.png](./_resources/cb3a86990612cc4c4fb11cd7f44ede68.png)
 
 ### 条件随机场的参数化形式
 
@@ -463,7 +463,7 @@ $$
 
 精确推断的实质是一类**动态规划**算法，它利用图模型所描述的条件独立性来削减计算目标概率值所需的计算量。
 
-![8ca9c31c05b68fb85f496bfb865420df.png](_resources/8ca9c31c05b68fb85f496bfb865420df.png)
+![8ca9c31c05b68fb85f496bfb865420df.png](./_resources/8ca9c31c05b68fb85f496bfb865420df.png)
 
 假定推断目标是计算边际概率 $P(x_5)$ ，显然，为了完成此目标，只需通过加法消去变量 $\{x_1,x_2,x_3,x_4\}$，即
 $$
@@ -583,7 +583,7 @@ $$
 
 相互独立的、由相同机制生成的多个变量被放在一个方框(盘)内，并在方框中标出类似变量重复出现的个数 $N$ ；方框可以嵌套。 通常用阴影标注出已知的、能观察到的变量
 
-![d092def73942d23cea21e59fd9484dcf.png](_resources/d092def73942d23cea21e59fd9484dcf.png)
+![d092def73942d23cea21e59fd9484dcf.png](./_resources/d092def73942d23cea21e59fd9484dcf.png)
 
 ### 变分推断
 
@@ -607,7 +607,7 @@ $$
   $$
   其中，$\mathcal{Q}(\Theta;\Theta^t)$ 实际上是对数联合似然函数 $\ln{p(\mathbf{x},\mathbf{z}|\Theta)}$ 在分布 $p(\mathbf{z}|\mathbf{x},\Theta^t)$ 下的期望，当该分布与变量 $\mathbf{z}$ 的真实后验分布相等时，$\mathcal{Q}(\Theta;\Theta^t)$ 近似于**对数似然函数**。于是， EM 算法最终可获得稳定的参数。而隐变量 $\mathbf{z}$ 的分布也能通过该参数获得。
 
-上述的 $p(\mathbf{z}|\mathbf{x},\Theta^t)$ 未必是隐变量 $\mathbf{z}$ 服从的真实分布，而只是一个近似分布，将该近似分布用 $q(\mathbf{z})$ 表示，==则有==（这一部分的推导请见[PGM MVS]([PGM MVS ](undefined))）
+上述的 $p(\mathbf{z}|\mathbf{x},\Theta^t)$ 未必是隐变量 $\mathbf{z}$ 服从的真实分布，而只是一个近似分布，将该近似分布用 $q(\mathbf{z})$ 表示，==则有==（这一部分的推导请见[PGM MVS]([PGM MVS ](./undefined))）
 $$
 \ln{p(\mathbf{x})}=\mathcal{L}(q)+\mathrm{KL}(q\|p)
 $$
@@ -669,11 +669,11 @@ $$
   * 根据 $\Theta_t$ 进行话题指派，得到文档 $t$ 中词 $n$ 的话题 $z_{t,n}$ 
   * 根据指派的话题所对应的词频分布 $\beta_k$ 随机采样生成词
 
-![92379d9c1d9085b255cb115a60dd5697.png](_resources/92379d9c1d9085b255cb115a60dd5697.png)
+![92379d9c1d9085b255cb115a60dd5697.png](./_resources/92379d9c1d9085b255cb115a60dd5697.png)
 
 通过 LDA 的盘式记法，描述了它的变量关系，其中文档中的词频 $w_{t,n}$ 是唯一的己观测变量，它依赖于对这个词进行的话题指派 $z_{t,n}$ 以及话题所对应的词频 $\beta_k$ ；同时，话题指派 $z_{t,n}$ 依赖于话题分布 $\Theta_t$，$\Theta_t$ 依赖于狄利克雷分布的参数 $\boldsymbol{\alpha}$ 而话题词频则依赖于参数 $\boldsymbol{\eta}$ 
 
-![46aa5fdbe27a7cf34f95a1edc8b91d2c.png](_resources/46aa5fdbe27a7cf34f95a1edc8b91d2c.png)
+![46aa5fdbe27a7cf34f95a1edc8b91d2c.png](./_resources/46aa5fdbe27a7cf34f95a1edc8b91d2c.png)
 
 由此得到 LDA 模型对应的概率分布
 $$
@@ -703,7 +703,7 @@ $$
 # EM 算法
 
 > 另一种定义方式请参考《机器学习》周志华 [PGM MVS
-](undefined)
+](./undefined)
 ## 算法
 
 输入：观测变量数据 $Y$ ，隐变量数据 $Z$ ，联合分布 $P(Y,Z|\theta)$ ，条件分布 $P(Z|Y,\theta)$ 
@@ -779,7 +779,7 @@ $$
 \end{split}
 $$
 
-![db5258dcb1f4ebe6e97895f14c72d909.png](_resources/db5258dcb1f4ebe6e97895f14c72d909.png)
+![db5258dcb1f4ebe6e97895f14c72d909.png](./_resources/db5258dcb1f4ebe6e97895f14c72d909.png)
 
 ## EM 算法的收敛性
 
@@ -835,7 +835,7 @@ $$
 ## 推广：GEM 算法
 
 > 更好的推导方式请参考 [PGM MVS
-](undefined) 中的定义
+](./undefined) 中的定义
 
 ### F 函数
 
